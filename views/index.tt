@@ -1,0 +1,52 @@
+<!-- BootStrap NavBar -->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+<h3 >
+<a class = "brand" href = "[% request.uri_base %]" >
+<img src =
+  "images/inmobi-logo.jpg" >      A Glance at Zookeeper Cluster (s)
+<img src = "images/zookeeper_small.gif" height="80" width="20">
+<img src = "images/zookeeper_small.gif" height="80" width="20">
+<img src = "images/zookeeper_small.gif" height="80" width="20">
+</a >
+</h3 > 
+        <h9> by Grid-Ops </h9>
+    </div>
+  </div>
+</div>
+
+
+<!-- Main content -->
+
+<!-- HEADER line -->
+<div class="container">
+
+<div class="page-header">
+	<div class="row">
+
+       <div class="btn-group">
+       <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+	       ZooPark     <span class="caret"></span>
+       </a>
+
+
+        <!--
+	<ul class="nav nav-tabs">  <li class="dropdown">
+	    <a class="dropdown-toggle"
+	       data-toggle="dropdown"
+	       href="#">
+	       ZooKeepers <b class="caret"></b>
+	    </a>
+         -->
+	 <ul class="dropdown-menu">
+		[% FOREACH cluster_name IN zk_ensembles %]
+		<li> <a tabindex="-1" href="/view/[% cluster_name %]">[% cluster_name %] </a></li>
+		[% END %]
+         </ul>
+        </li> </ul>
+
+	</div>
+</div>
+
+</div>

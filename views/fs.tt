@@ -1,0 +1,131 @@
+<!-- BootStrap NavBar -->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+<h3 >
+<a class = "brand" href = "[% request.uri_base %]" >
+<img src =
+  "/images/inmobi-logo.jpg" >      A Glance at Zookeeper Cluster (s)
+<img src = "/images/zookeeper_small.gif" height="80" width="20">
+<img src = "/images/zookeeper_small.gif" height="80" width="20">
+<img src = "/images/zookeeper_small.gif" height="80" width="20">
+</a >
+</h3 > 
+        <h9> by Grid-Ops </h9>
+    </div>
+  </div>
+</div>
+
+
+<!-- Main content -->
+
+<!-- HEADER line -->
+<div class="container">
+
+<div class="page-header">
+	<div class="row">
+
+       <div class="btn-group">
+       <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+	       ZooPark     <span class="caret"></span>
+       </a>
+
+
+        <!--
+	<ul class="nav nav-tabs">  <li class="dropdown">
+	    <a class="dropdown-toggle"
+	       data-toggle="dropdown"
+	       href="#">
+	       ZooKeepers <b class="caret"></b>
+	    </a>
+         -->
+	 <ul class="dropdown-menu">
+		[% FOREACH cluster_name IN zk_ensembles %]
+		<li> <a tabindex="-1" href="/view/[% cluster_name %]">[% cluster_name %] </a></li>
+		[% END %]
+         </ul>
+        </li> </ul>
+
+	</div>
+</div>
+<!-- end of page header -->
+</div>
+<!-- end of container -->
+
+<div class="row">        <div class="span10">
+
+
+[% IF zkfsinfo.zk_statinfo.zkpath %] 
+<h5> 
+   ZooKeeper Cluster Ensemble: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="badge badge-info"> [% zkfsinfo.zk_statinfo.zkcluster FILTER upper %] </span>
+</h5>   
+
+<h6> ZNode : &nbsp;&nbsp;&nbsp; [% zkfsinfo.zk_statinfo.zkpath %] 
+[% IF zkfsinfo.zk_statinfo.zkpath == "/" %] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button class="btn btn-small btn-warning" type="button">&nbsp;&nbsp;BACKUP NOW!&nbsp;&nbsp;</button> [% END %]
+</h6> 
+
+<h6> ZNode Data : &nbsp;&nbsp;&nbsp; [% zkfsinfo.zk_data %] </h6> 
+
+<hr/>
+<h6> ZNode Children : ([% zkfsinfo.zk_statinfo.num_children %]) </h6>
+[% IF zkfsinfo.zk_statinfo.num_children > 0 %]
+<table>
+[% FOREACH zk_child in zkfsinfo.zk_children %]
+<tr>
+<td>
+<a href="/fs/[% zk_ensemble %][% zkfsinfo.zk_statinfo.zkpath %][% IF zkfsinfo.zk_statinfo.zkpath != "/" %]/[% END %][% zk_child %]" <i class=" icon-plus icon-white "></i> &nbsp; [% zk_child %] </a> </td>
+</tr>
+[% END %]
+</table>
+[% END %]
+[% IF zkfsinfo.zk_statinfo.zkpath || zkfsinfo.zk_statinfo.num_children == 1 %]
+<hr/>
+<h6> ZNode Parent : </h6>
+[% zkpath_parent = zkparent(zkfsinfo.zk_statinfo.zkpath) %]
+<a href="/fs/[% zk_ensemble %][% zkpath_parent %]/" <i class=" icon-arrow-up icon-white "></i> &nbsp; [% zkpath_parent %]/ </a></td>
+[% END %]
+
+<hr/>
+
+<h6> ZNode Stats : &nbsp;&nbsp;&nbsp; </h6>
+
+<table class="table table-striped table-bordered table-condensed">
+<tbody>
+[% FOREACH zk_stats IN zkfsinfo.zk_statinfo %]
+<tr>
+<td>
+[% zk_stats.key %]
+</td>
+<td>
+[% zk_stats.value %]
+</td>
+</tr>
+[% END %]
+</tbody>
+</table>
+
+<hr/>
+<h6> ZNode ACL(s) </h6>
+<table class="table table-striped table-bordered table-condensed">
+<tbody>
+[% FOREACH zk_acl in zkfsinfo.zk_acls %]
+<tr>
+<td>
+[% zk_acl.key %]
+</td>
+<td>
+[% zk_acl.value %]
+</td>
+</tr>
+[% END %]
+</table>
+
+[% END %] 
+
+</div>
+</div>
+
+</div>
+
+

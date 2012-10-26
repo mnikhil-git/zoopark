@@ -1,0 +1,141 @@
+<!-- BootStrap NavBar -->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+<h3 >
+<a class = "brand" href = "[% request.uri_base %]" >
+<img src =
+  "/images/inmobi-logo.jpg" >      A Glance at Zookeeper Cluster (s)
+<img src = "/images/zookeeper_small.gif" height="80" width="20">
+<img src = "/images/zookeeper_small.gif" height="80" width="20">
+<img src = "/images/zookeeper_small.gif" height="80" width="20">
+</a >
+</h3 > 
+        <h9> by Grid-Ops </h9>
+    </div>
+  </div>
+</div>
+
+
+<!-- Main content -->
+
+<!-- HEADER line -->
+<div class="container">
+
+<div class="page-header">
+	<div class="row">
+
+       <div class="btn-group">
+       <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+	       ZooPark     <span class="caret"></span>
+       </a>
+
+
+        <!--
+	<ul class="nav nav-tabs">  <li class="dropdown">
+	    <a class="dropdown-toggle"
+	       data-toggle="dropdown"
+	       href="#">
+	       ZooKeepers <b class="caret"></b>
+	    </a>
+         -->
+	 <ul class="dropdown-menu">
+		[% FOREACH cluster_name IN zk_ensembles %]
+		<li> <a tabindex="-1" href="/view/[% cluster_name %]">[% cluster_name %] </a></li>
+		[% END %]
+         </ul>
+        </li> </ul>
+
+	</div>
+</div>
+<!-- end of page header -->
+</div>
+<!-- end of container -->
+
+<!-- start of row -->
+<div class="row">        <div class="span100">
+
+    <script src="/javascripts/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript">  
+        $(document).ready(function(){
+            $("#report tr:odd").addClass("odd");
+            $("#report tr:not(.odd)").hide();
+            $("#report tr:first-child").show();
+            
+            $("#report tr.odd").click(function(){
+                $(this).next("tr").toggle();
+                $(this).find(".arrow").toggleClass("up");
+            });
+            //$("#report").jExpand();
+        });
+    </script>       
+
+<ul>
+<table id="report" class="table table-hover">
+<thead>
+<h6> &nbsp; &nbsp;  ZooKeeper Cluster Ensemble: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="/fs/[% zk_ensemble %]/" rel="tooltip" delay="show:10, hide:100;" data-animation="true" placement="top" title="Explore ZooKeeper Tree of [% zk_ensemble FILTER upper %] ">
+<span class="badge badge-info"> [% zk_ensemble FILTER upper %] </span> 
+</a>
+</h6>
+</thead>
+<tbody>
+<tr>
+<th> Host </th>
+<th> Port </th>
+<th> Mode </th>
+<th> Version </th>
+<th> #Conns </th>
+</tr>
+  [% FOREACH zk_host IN zk_info %]
+  <!-- table row -->
+  <tr>
+  <td>
+      <!-- <a href="#[% zk_host.key %]" data-toggle="tab">[% zk_host.key %]</a> -->
+      [% zk_host.key %]
+  </td>
+  <td>
+  [% zk_host.value.zkport %] 
+  </td> 
+  <td>
+  <span class=
+  [% IF zk_host.value.Mode == 'leader' %] "label label-info"
+  [% ELSE %] "label" [% END %] >
+  [% zk_host.value.Mode %]
+  </span>
+  </td>
+  <td>
+  [% zk_host.value.version %] </td>
+  </tr>
+  <!-- table row end -->
+  <tr style="border-top:1px;">
+    <td>
+      <h6> Additional information : </h6>
+      <ul>
+         <li> Host : [% zk_host.value.hostname %] </li>
+         <li> Port : [% zk_host.value.zkport %] </li>
+         <li> Mode : [% zk_host.value.Mode %] </li>
+         <li> Zxid : [% zk_host.value.Zxid %] </li>
+         <li> Version : [% zk_host.value.version_string %] </li>
+         <li> Minimum Latency : [% zk_host.value.min_latency %] </li>
+         <li> Maximum Latency : [% zk_host.value.max_latency %] </li>
+         <li> Average Latency : [% zk_host.value.avg_latency %] </li>
+         <li> Node Count : [% zk_host.value.item('Node count') %] </li>
+         <li> Sent (bytes)  : [% zk_host.value.item('Sent') %] </li>
+         <li> Received (bytes)  : [% zk_host.value.item('Received') %] </li>
+      </ul>
+     <td></td>
+     <td></td>
+     <td></td>
+     <td></td>
+  </tr>
+  [% END %]
+
+</tbody>
+</table>
+</ul>
+
+
+</div>
+<!-- end of row -->
+

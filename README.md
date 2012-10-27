@@ -7,11 +7,11 @@ INSTALL
 =======
  a) install the required perl modules
 
- $ cat INSTALL_perl | xargs | sudo cpanm --
+     $ sudo bin/cpanm `cat INSTALL_perl | xargs`
 
  b) update & save the configuration of zookeeper cluster ensembles in zkensemble.ini
  
- $ vim zkensemble.ini
+     $ vim zkensemble.ini
 
 Run
 ====

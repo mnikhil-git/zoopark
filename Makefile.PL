@@ -4,11 +4,11 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     NAME                => 'zoopark',
-    AUTHOR              => q{YOUR NAME <youremail@example.com>},
+    AUTHOR              => q{Nikhil Mulley <mnikhil@gmail.com>},
     VERSION_FROM        => 'lib/zoopark.pm',
-    ABSTRACT            => 'YOUR APPLICATION ABSTRACT',
+    ABSTRACT            => 'WebUI to ZooKeeper Cluster(s)',
     ($ExtUtils::MakeMaker::VERSION >= 6.3002
-      ? ('LICENSE'=> 'perl')
+      ? ('LICENSE'=> 'Apache Software License')
       : ()),
     PL_FILES            => {},
     PREREQ_PM => {
